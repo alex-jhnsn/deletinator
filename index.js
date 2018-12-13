@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 require('dotenv').config();
 var axios = require("axios");
+var inquirer = require("inquirer");
 
 var apiKey = process.env.API_KEY;
 var apiToken = process.env.API_TOKEN;
@@ -35,26 +36,43 @@ async function displayBoards() {
     let test = boards.data.map(board => {
         return board.name;
     });
-    console.log("Available boards: " + test);
+    return test;
+    //console.log("Available boards: " + test);
 }
 
-async function main() {
-    if (process.argv.length > 3) {
-        console.log("Usage: deletinator [BOARDNAME]");
-        return 0;
-    }
+async function main(input) {
+    // if (process.argv.length > 3) {
+    //     console.log("Usage: deletinator [BOARDNAME]");
+    //     return 0;
+    // }
     
-    if (process.argv.length == 2) {
-        displayBoards();
-        return 0;
-    } 
+    // if (process.argv.length == 2) {
+    //     displayBoards();
+    //     return 0;
+    // }
     
-    console.log("Deleting boards with the name: " + process.argv[2] + ".");
+    console.log(await displayBoards());
+
+    console.log("Deleting boards with the name: " + input + ".");
     
     deleteBoards(process.argv[2]);
 }
 
-main().catch("fuck");
+inquirer
+  .prompt([
+    {
+        type: "list",
+        name: "delete_prompt",
+        message: "Enter a board name to delete: (ctrl + c to quit)",
+        choices: async function() {
+            let done = this.async();
+            done = await displayBoards();
+        } 
+    }
+  ])
+  .then(answers => {
+    main(answers.delete_prompt);
+  });
 
 
 

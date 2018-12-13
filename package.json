@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Deletes Trello boards that have the name provided",
   "main": "deletinator.js",
-  "bin":{
+  "bin": {
     "deletinator": "./index.js"
   },
   "scripts": {
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.18.0",
-    "dotenv": "^6.2.0"
+    "dotenv": "^6.2.0",
+    "inquirer": "^6.2.1"
   }
 }
