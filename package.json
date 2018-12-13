@@ -2,7 +2,7 @@
   "name": "deletinator",
   "version": "1.0.0",
   "description": "Deletes Trello boards that have the name provided",
-  "main": "index.js",
+  "main": "deletinator.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
